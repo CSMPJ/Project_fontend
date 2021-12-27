@@ -1,0 +1,16 @@
+.minus {
+    background-color: rgb(11, 184, 63);
+    cursor: pointer;
+    margin: 5px;
+    font-size: 1rem;
+    border-radius: 150px;
+    padding: 0.4rem 0.4rem;
+  }
+  
+  .plus{
+    background-color: rgb(11, 184, 63);
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 100px;
+    padding: 0.4rem 0.3rem;
+  }
