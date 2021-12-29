@@ -6,14 +6,15 @@ import Axios from "axios"
 
 
 function Res() {
-  const[usernameReq, setUsernameReq] = useState('');
-  const[passwordReq, setPasswordReq] = useState('');
+  const[usernameReq, setUsernameReq] = useState("");
+  const[passwordReq, setPasswordReq] = useState("");
 
   const[username, setUsername] = useState("");
   const[password, setPassword] = useState("");
-  const [result, setResult] = useState("");
 
-  const[loginStatus, setloginStatus] = useState("");
+  const [result, setResult] = useState('');
+
+  const[LoginStatus, setLoginStatus] = useState('');
 
   const { register1, handleSubmit } = useForm();
   const onSubmit = (data) => setResult(JSON.stringify(data));
@@ -30,13 +31,19 @@ const register = () => {
 
 const Login = () =>{
   Axios.post("http://localhost:3001/login", {
-    username: usernameReq,
-    password: passwordReq,
+    username: username,
+    password: password,
   }).then((response) =>{
+
+
+        console.log(response);
+//   });
+// };
+
     if(response.data.message){
-      setloginStatus(response.data.message)
+      setLoginStatus(response.data.message);
     } else{
-      setloginStatus(response.data[0])
+      setLoginStatus(response.data.rows[0].username);
     }
   });
 };
@@ -46,16 +53,16 @@ return(
   <form onSubmit={handleSubmit(onSubmit)} className='Re'>
    
     <Headers />
-<div classname = "Reg">
-   <div>
+    <div classname = "Reg">
+      <div>
    
-  <input type="text" className ='Reg'
-    placeholder="Username" 
-    onChange={(e) =>{
-      setUsernameReq(e.target.value);
+        <input type="text" className ='Reg'
+            placeholder="Username" 
+            onChange={(e) =>{
+              setUsernameReq(e.target.value);
     }}
-  />
-   <input type="password" className ='Reg'
+      />
+      <input type="password" className ='Reg'
     placeholder="Password"  
     onChange={(e) =>{
       setPasswordReq(e.target.value);
@@ -65,7 +72,7 @@ return(
     <br></br>
   </div>
 
-<div>
+  <div>
   
   <input type="text" className ='Reg'
     placeholder="Username" 
@@ -82,7 +89,7 @@ return(
   <button onClick={Login} className='Sub'>Login</button>
   
   </div>
-  <h1>{loginStatus}</h1>
+  <h1>{LoginStatus}</h1>
 </div>
 </form>
 )
