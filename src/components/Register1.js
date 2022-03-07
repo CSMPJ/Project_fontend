@@ -15,6 +15,7 @@ function Res() {
   const [result, setResult] = useState('');
 
   const[LoginStatus, setLoginStatus] = useState('');
+  const[RegisterStatus, setRegisterStatus] = useState('');
 
   const { register1, handleSubmit } = useForm();
   const onSubmit = (data) => setResult(JSON.stringify(data));
@@ -26,7 +27,13 @@ const register = () => {
     password: passwordReq,
   }).then((response) => {
     console.log(response);
+    if(response.data.message){
+      setRegisterStatus(response.data.message);
+    } else{
+      setRegisterStatus(response.data.rows[0].username);
+    }
   });
+  
 };
 
 const Login = () =>{
@@ -34,12 +41,7 @@ const Login = () =>{
     username: username,
     password: password,
   }).then((response) =>{
-
-
         console.log(response);
-//   });
-// };
-
     if(response.data.message){
       setLoginStatus(response.data.message);
     } else{
@@ -70,7 +72,10 @@ return(
   />
   <button onClick={register} className='Sub'>Register</button>
     <br></br>
+    <h1>{RegisterStatus}</h1>
+    <br></br>
   </div>
+  
 
   <div>
   
@@ -98,26 +103,4 @@ export default Res;
 
 
 
-
-// export default function Registers1() {
-//   const { register, handleSubmit } = useForm();
-//   const [result, setResult] = useState("");
-//   const onSubmit = (data) => setResult(JSON.stringify(data));
-
-//   return ( 
-//     <form onSubmit={handleSubmit(onSubmit)} className='Re'>
-//       <Headers />
-//       <input className ='Reg' {...register("firstName")} placeholder="First name" />
-//       <input className ='Reg' {...register("lastName")} placeholder="Last name" />
-//       <select className ='Reg' {...register("category")}>
-//         <option className ='Reg' value="">Select...</option>
-//         <option className ='Reg' value="A">Category A</option>
-//         <option className ='Reg' value="B">Category B</option>
-//       </select>
-
-//       <p>{result}</p>
-//       <input type="submit" value="Submit" className='Sub'/>
-//     </form>
-//   );
-// }
 
